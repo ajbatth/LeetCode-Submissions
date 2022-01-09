@@ -6,9 +6,7 @@ public:
             nums.push_back(nums[nums[i]]);
         }
         
-        for(int i=0;i<n;i++){
-            nums.erase(nums.begin());
-        }
+        nums.erase(nums.begin(),nums.begin()+n);
         return nums;
     }
 };
