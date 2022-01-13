@@ -3,9 +3,10 @@ class Solution {
 public:
     void cmbns(vector<vector<int>>&ans,vector<int>&stds,vector<int>&com, int t,int i){
         int n=stds.size();
-       
+       if(t<=0 || i==n){
             if(t==0){
-                ans.push_back(com);            
+                ans.push_back(com);  
+            }
             return;
         }
         
