@@ -31,7 +31,8 @@ public:
 
                 curr[j]=min(right,down);
             }
-            curr.swap(pre);
+            //curr.swap(pre);
+            swap(curr,pre);
         }
         return pre[n-1];
     }
