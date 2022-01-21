@@ -19,19 +19,20 @@ public:
         // vector<vector<int>>dp(m,vector<int>(n,-1));        
         // return minpath(grid,m-1,n-1,dp);
         
-        vector<vector<int>>dp(m,vector<int>(n,-1));
-        dp[0][0]=grid[0][0];
+        vector<int>pre(n),curr(n);
+        curr[0]=grid[0][0];
         
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(i==0 && j==0) continue;
                 int right=999999,down=999999;
-                right=grid[i][j]+ (j>0? dp[i][j-1]:999999);
-                down=grid[i][j] + (i>0?dp[i-1][j]:999999);
+                right=grid[i][j]+ (j>0? curr[j-1]:999999);
+                down=grid[i][j] + (i>0?pre[j]:999999);
 
-                dp[i][j]=min(right,down);
+                curr[j]=min(right,down);
             }
+            curr.swap(pre);
         }
-        return dp[m-1][n-1];
+        return pre[n-1];
     }
 };
