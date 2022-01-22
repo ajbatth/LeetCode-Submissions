@@ -1,24 +1,19 @@
 class Solution {
-private:
-    int fact(int n){
-        int f=1;
-        for(int i=2;i<=n;i++){
-            f*=i;
-        }
-        return f;
-    }
+
 public:
     
     string getPermutation(int n, int k) {
         vector<int>v;
         string ans;
+        int f=1;
         for(int i=1;i<=n;i++){
+            f*=i;
             v.push_back(i);
         }
         k--;
         while(1){
             n--;
-            int f=fact(n);
+            f=f/v.size();
             int i=k/f;
             ans.push_back(v[i]+'0');
             v.erase(v.begin()+i);
