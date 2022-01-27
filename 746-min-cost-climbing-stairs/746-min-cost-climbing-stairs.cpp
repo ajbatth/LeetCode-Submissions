@@ -7,9 +7,9 @@ public:
         if(dp[i]!=-1){
             return dp[i];
         }
-        int first=solve(i+1,v,dp);
-        int second=solve(i+2,v,dp);
-        dp[i]=min(first,second)+v[i];
+        int first=v[i]+solve(i+1,v,dp);
+        int second=v[i]+ solve(i+2,v,dp);
+        dp[i]=min(first,second);
         return dp[i] ;
     }
     
