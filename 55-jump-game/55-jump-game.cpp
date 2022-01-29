@@ -15,9 +15,20 @@ private:
         }
         return dp[idx]= pick;
     }
+    
+    bool linearJump(vector<int>& nums){
+        int n=nums.size();
+        int i=0,dis=0;
+        for(;i<=dis;i++){
+            dis=max(dis,i+nums[i]);
+            if(dis>=n-1) return true;
+        }
+        return false;
+    }
 public:
     bool canJump(vector<int>& nums) {
         vector<int>dp(nums.size(),-1);
-        return jump(nums,0,dp);
+        return linearJump(nums);
+        
     }
 };
