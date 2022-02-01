@@ -16,9 +16,24 @@ private:
         }
         return dp[idx]= mini;
     }
+    int minj(vector<int>& nums,vector<int>&dp){
+        int n=nums.size();
+        dp[n-1]=0;
+        for(int idx=n-2;idx>=0;idx--){
+            int mini=99999;
+            for(int i=1;i<=nums[idx];i++){
+                if(idx+i<n){
+                int jumps=1+dp[idx+i];
+                mini=min(mini,jumps);
+                }
+            }
+            dp[idx]= mini;
+        }
+        return dp[0];
+    }
 public:
     int jump(vector<int>& nums) {
         vector<int>dp(nums.size(),-1);
-        return minjump(nums,0,dp);
+        return minj(nums,dp);
     }
 };
