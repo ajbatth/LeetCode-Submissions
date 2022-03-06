@@ -9,6 +9,16 @@
  * };
  */
 class Solution {
+private:
+    ListNode* rev(ListNode* head, ListNode* e){
+        if( head==e|| head->next==NULL )return head;
+        
+        ListNode* newhead=rev(head->next,e);
+        head->next->next=head;
+        head->next=NULL;
+        return newhead;
+        
+    }
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
          int K=k;
@@ -22,13 +32,16 @@ public:
         }
         ListNode* newhead=e->next;
         
-        ListNode *p=NULL,*c=s,*n=s;
-        while(p!=e){
-            n=n->next;
-            c->next=p;
-            p=c;
-            c=n;
-        }
+        // ListNode *p=NULL,*c=s,*n=s;
+        // while(p!=e){
+        //     n=n->next;
+        //     c->next=p;
+        //     p=c;
+        //     c=n;
+        // }
+        
+        rev(s,e);
+        
         ListNode* rev_head=reverseKGroup(newhead,K);
         s->next=rev_head;
         return e;
