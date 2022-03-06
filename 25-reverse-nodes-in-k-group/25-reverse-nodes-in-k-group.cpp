@@ -11,11 +11,11 @@
 class Solution {
 private:
     ListNode* rev(ListNode* head, ListNode* e){
-        if( head==e|| head->next==NULL )return head;
+        if( head==e)return head;
         
         ListNode* newhead=rev(head->next,e);
         head->next->next=head;
-        head->next=NULL;
+        head->next=e;
         return newhead;
         
     }
