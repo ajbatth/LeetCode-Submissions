@@ -11,7 +11,7 @@
 class Solution {
 private:
     ListNode* rev(ListNode* head, ListNode* e){
-        if( head==e|| head->next==NULL )return head;
+        if( head==e)return head;
         
         ListNode* newhead=rev(head->next,e);
         head->next->next=head;
@@ -31,14 +31,6 @@ public:
             if(e==NULL) return head;
         }
         ListNode* newhead=e->next;
-        
-        // ListNode *p=NULL,*c=s,*n=s;
-        // while(p!=e){
-        //     n=n->next;
-        //     c->next=p;
-        //     p=c;
-        //     c=n;
-        // }
         
         rev(s,e);
         
