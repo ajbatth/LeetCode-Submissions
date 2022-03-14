@@ -17,7 +17,7 @@ public:
         n=v.size();
         string ans="";
         for(int i=0;i<n;i++){
-            if(v[i]!="." && v[i]!=".."){
+            if(v[i]!=".."){
                 ans.push_back('/');
                 ans.append(v[i]);
             }
