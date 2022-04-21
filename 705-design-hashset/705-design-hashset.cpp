@@ -3,7 +3,7 @@ public:
     int size;
     vector<list<int>>v;
     MyHashSet() {
-        size=10000;
+        size=15000;
         v.resize(size);
     }
     int myhash(int key){ return key%size;}
