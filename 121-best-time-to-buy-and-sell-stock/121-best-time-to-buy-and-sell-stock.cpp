@@ -1,23 +1,13 @@
+#include<bits/stdc++.h>
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int profit=0,maxProfit=0;
-        
-        int buy_price=prices[0], sell_price=prices[0];
-        
-        for(int i=0;i<prices.size();i++){
-            if(prices[i]<buy_price){
-                buy_price=prices[i];
-                sell_price=buy_price;
-            }
-            if(prices[i]>sell_price){
-                sell_price=prices[i];
-            }
-            profit=sell_price-buy_price;
-            maxProfit=max(maxProfit,profit);
-            
+        int ans=0,n=prices.size();
+        int maxi=prices[n-1];
+        for(int i=n-1;i>=0;i--){
+            maxi=max(maxi,prices[i]);
+            ans=max(ans,maxi-prices[i]);            
         }
-        
-        return maxProfit;
+        return ans;
     }
 };
