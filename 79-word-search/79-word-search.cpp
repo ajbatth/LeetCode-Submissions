@@ -7,8 +7,11 @@ class Solution {
         board[I][J]='0';
         bool ans=0;
         ans=ans|f(board,word,I+1,J,K+1);
+        if(ans)return ans;
         ans=ans|f(board,word,I-1,J,K+1);
+        if(ans)return ans;
         ans=ans|f(board,word,I,J+1,K+1);
+        if(ans)return ans;
         ans=ans|f(board,word,I,J-1,K+1);
         
         board[I][J]=word[K];
