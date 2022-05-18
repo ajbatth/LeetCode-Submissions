@@ -24,6 +24,7 @@ public:
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 ans=ans|f(board,word,i,j,0);
+                if(ans)break;
             }
         }
         return ans;
