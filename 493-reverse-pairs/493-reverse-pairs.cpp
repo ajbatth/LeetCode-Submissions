@@ -1,20 +1,59 @@
 class Solution {
-public:
-    int sort_and_count(vector<int>::iterator begin, vector<int>::iterator end) {
-        if (end - begin <= 1)
-            return 0;
-        auto mid = begin + (end - begin) / 2;
-        int count = sort_and_count(begin, mid) + sort_and_count(mid, end);
-        for (auto i = begin, j = mid; i != mid; ++i) {
-            while (j != end and *i > 2L * *j)
-                ++j;
-            count += j - mid;
+    
+    int merge(vector<int>&nums,int l, int mid, int r){
+        vector<int>v;
+        int pairs=0;
+        int i=l,j=mid;
+        while(i<mid){
+            while(j<=r && nums[i]>nums[j]*2LL){
+                j++;
+            }
+            pairs+=j-mid;
+            i++;
         }
-        inplace_merge(begin, mid, end);
-        return count;
+        i=l,j=mid;
+        while(i<mid && j<=r){
+            if(nums[i]<nums[j]){
+                v.push_back(nums[i]);
+                i++;
+            }
+            else{
+                v.push_back(nums[j]);
+                j++;
+            }
+        }
+        while(i<mid){
+            v.push_back(nums[i]);
+                i++;
+        }
+        while(j<=r){
+            v.push_back(nums[j]);
+                j++;
+        }
+        
+        int n=v.size();
+        for(i=0;i<n;i++){
+            nums[l+i]=v[i];
+        }
+        
+        
+        
+        return pairs;
     }
-
+    
+    
+    int mergesort(vector<int>&nums,int l,int r){
+        if(l==r)return 0;
+        int pairs=0;
+        int mid=(l+r+1)/2;
+       pairs+= mergesort(nums,l,mid-1);
+       pairs+= mergesort(nums,mid,r);
+        
+        pairs+=merge(nums,l,mid,r);
+        return pairs;
+    }
+public:
     int reversePairs(vector<int>& nums) {
-        return sort_and_count(nums.begin(), nums.end());
+        return mergesort(nums,0,(int)nums.size()-1);
     }
 };
