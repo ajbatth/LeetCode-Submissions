@@ -14,7 +14,7 @@ class Solution {
         if(root==NULL)return 0;
         int left=1+checkBalance(root->left,flag);
         int right=1+checkBalance(root->right,flag);
-        flag&=abs(left-right)<=1;
+        if(abs(left-right)>1)flag=0;
         return max(left,right);
         
     }
