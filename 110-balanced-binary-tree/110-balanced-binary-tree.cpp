@@ -10,6 +10,7 @@
  * };
  */
 class Solution {
+    public:
     int getHeight(TreeNode* root, bool& balance){
         if(root==NULL) return 0;
         if(root->left==NULL && root->right==NULL) return 1;
@@ -18,7 +19,7 @@ class Solution {
         if(abs(left-right)>1) balance=0;
         return max(left,right)+1;
     }
-public:
+
     bool isBalanced(TreeNode* root) {
         bool balance =1;
         getHeight(root,balance);
