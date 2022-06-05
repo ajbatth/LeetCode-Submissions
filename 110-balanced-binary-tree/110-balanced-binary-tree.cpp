@@ -12,6 +12,7 @@
 class Solution {
     int checkBalance(TreeNode* root,bool &flag){
         if(root==NULL)return 0;
+        if(root->left==NULL && root->right==NULL)return 1;
         int left=1+checkBalance(root->left,flag);
         int right=1+checkBalance(root->right,flag);
         if(abs(left-right)>1)flag=0;
