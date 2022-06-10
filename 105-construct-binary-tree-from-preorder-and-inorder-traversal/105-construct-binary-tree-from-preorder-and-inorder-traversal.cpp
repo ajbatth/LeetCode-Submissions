@@ -12,7 +12,7 @@
 class Solution {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder,int pre_start,
-                     int pre_end,int in_start, int in_end,map<int,int>&mp){
+                     int pre_end,int in_start, int in_end,unordered_map<int,int>&mp){
         if(pre_start>pre_end || in_start>in_end)return NULL;
         TreeNode *root=new TreeNode(preorder[pre_start]);
         int idx=mp[preorder[pre_start]];
@@ -22,7 +22,7 @@ public:
         return root;
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        map<int,int>mp;
+        unordered_map<int,int>mp;
         for(int i=0;i<inorder.size();i++){
             mp[inorder[i]]=i;
         }
