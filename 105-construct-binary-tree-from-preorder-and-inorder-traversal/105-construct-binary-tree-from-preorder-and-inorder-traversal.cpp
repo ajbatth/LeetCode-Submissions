@@ -17,7 +17,7 @@ public:
         TreeNode *root=new TreeNode(preorder[pre_start]);
         int idx=mp[preorder[pre_start]];
         int numsleft=idx-in_start;
-        root->left=buildTree(preorder,inorder,pre_start+1,pre_end+numsleft,in_start,idx-1,mp);
+        root->left=buildTree(preorder,inorder,pre_start+1,pre_start+numsleft,in_start,idx-1,mp);
         root->right=buildTree(preorder,inorder,pre_start+numsleft+1,pre_end,idx+1,in_end,mp);
         return root;
     }
