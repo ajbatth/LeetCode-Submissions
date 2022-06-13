@@ -13,7 +13,7 @@ private:
        return dp[i][j]=min(down,dia);
     }
     
-    //tabular
+    //tabular + space optimization
     int minpath(vector<vector<int>>& tri){
         int n=tri.size();
         vector<int>next;
