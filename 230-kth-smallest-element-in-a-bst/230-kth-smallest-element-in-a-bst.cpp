@@ -14,7 +14,7 @@ public:
      int ans=0;
     bool flag=1;
     int kthSmallest(TreeNode* root, int &k) {
-        if(!flag)return 0;
+        //if(!flag)return 0;
         if(root==NULL){
             return 0;
         }
@@ -24,7 +24,7 @@ public:
         if(k==0 ){
             
             ans=root->val;
-            flag=0;
+            //flag=0;
             return ans;
         }
         kthSmallest(root->right,k);
