@@ -9,29 +9,31 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-bool cmp(TreeNode* a,TreeNode*b){
-    return a->val < b->val;
-}
 class Solution {
 public:
-    void in(TreeNode* root,vector<TreeNode*>&v){
+    void recover(TreeNode* root, TreeNode* &first, TreeNode* &mid, TreeNode* &last,TreeNode* &prev){
         if(root==NULL)return;
-        in(root->left,v);
-        v.push_back(root);
-        in(root->right,v);
-    }
-    void recoverTree(TreeNode* root) {
-        vector<TreeNode*>v;
-        in(root,v);
-        vector<TreeNode*>sv=v;
-        sort(sv.begin(),sv.end(),cmp);
-        int n=v.size();
         
-        for(int i=0;i<n;i++){
-            if(v[i]->val!=sv[i]->val){
-                swap(v[i]->val,sv[i]->val);
-                break;
+        recover(root->left,first,mid,last,prev);
+        if(prev!=NULL && prev->val>root->val){
+            if(first==NULL){
+                first=prev;
+                mid=root;
+            }
+            else{
+                last=root;
             }
         }
+        prev=root;
+        recover(root->right,first,mid,last,prev);
+        
+        
+    }
+    
+    void recoverTree(TreeNode* root) {
+        TreeNode* first=NULL,*mid=NULL,*last=NULL, *prev=NULL;
+        recover(root,first,mid,last,prev);
+        if(last!=NULL)swap(first->val,last->val);
+        else swap(first->val,mid->val);        
     }
 };
