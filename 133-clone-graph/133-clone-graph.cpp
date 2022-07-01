@@ -20,28 +20,26 @@ public:
 */
 
 class Solution {
+void dfsclone(Node* root,Node* original,vector<Node*>&visited){
+    for(auto adj:original->neighbors){
+        if(visited[adj->val]==NULL){
+            Node* child=new Node(adj->val);
+            root->neighbors.push_back(child);
+            visited[adj->val]=child;
+            dfsclone(child,adj,visited);
+        }
+        else{
+            root->neighbors.push_back(visited[adj->val]);
+        }
+    }
+}
 public:
     Node* cloneGraph(Node* node) {
-        if (!node) {
-            return NULL;
-        }
-        Node* copy = new Node(node -> val, {});
-        copies[node] = copy;
-        queue<Node*> todo;
-        todo.push(node);
-        while (!todo.empty()) {
-            Node* cur = todo.front();
-            todo.pop();
-            for (Node* neighbor : cur -> neighbors) {
-                if (copies.find(neighbor) == copies.end()) {
-                    copies[neighbor] = new Node(neighbor -> val, {});
-                    todo.push(neighbor);
-                }
-                copies[cur] -> neighbors.push_back(copies[neighbor]);
-            }
-        }
-        return copy;
+        if(node==NULL)return NULL;
+       Node* root=new Node(node->val);
+        vector<Node*>visited(102,NULL);
+        visited[node->val]=root;
+        dfsclone(root,node,visited);
+        return root;
     }
-private:
-    unordered_map<Node*, Node*> copies;
 };
