@@ -4,6 +4,44 @@ using namespace std;
 
  // } Driver Code Ends
 
+class Edge{
+    public:
+    int wt;
+    int u;
+    int v;
+    Edge(int w,int U,int V){
+        wt=w;
+        u=U;
+        v=V;
+    }
+};
+bool cmp(Edge& a, Edge& b){
+    return a.wt<b.wt;
+}
+void makeset(vector<int>&parent){
+    int n=parent.size();
+    for(int i=0;i<n;i++){
+        parent[i]=i;
+    }
+}
+int findParent(int node,vector<int>&parent){
+    if(parent[node]==node)return node;
+    return parent[node] = findParent(parent[node],parent);
+}
+void unian(int u, int v, vector<int>&parent,vector<int>&rank){
+    int u_parent=findParent(u,parent);
+    int v_parent=findParent(v,parent);
+    if(rank[u_parent]<rank[v_parent]){
+        parent[u_parent]=v_parent;
+    }
+    else if(rank[u_parent]>rank[v_parent]){
+        parent[v_parent] = u_parent;
+    }
+    else{
+        parent[u_parent] = v_parent;
+        rank[u_parent]++;
+    }
+}
 
 class Solution
 {
@@ -11,32 +49,28 @@ class Solution
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])
     {
-        vector<int>wt(V,1e9),mst(V,0);
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        wt[0]=0;
-        pq.push({0,0});
-        while(!pq.empty()){
-            int weight=pq.top().first;
-            int node=pq.top().second;
-            pq.pop();
-            mst[node]=1;
-            for(auto it:adj[node]){
-                int NODE=it[0];
-                int WT=it[1];
-                if(!mst[NODE]){
-                    if(WT<wt[NODE]){
-                        wt[NODE]=WT;
-                        pq.push({WT,NODE});
-                    }
-                }
-            }
-            
-        }
-        int ans=0;
-        for(auto it:wt){
-            ans+=it;
-        }
-        return ans;
+       vector<int>parent(V),rank(V,0);
+       vector<Edge>edges;
+       
+       for(int i=0;i<V;i++){
+           for(auto ch:adj[i]){
+               Edge edge=Edge(ch[1],i,ch[0]);
+               edges.push_back(edge);
+           }
+       }
+       sort(edges.begin(),edges.end(),cmp);
+       
+       makeset(parent);
+       
+       int N=edges.size();
+       int ans=0;
+       for(int i=0;i<N;i++){
+           if(findParent(edges[i].u, parent)!=findParent(edges[i].v, parent)){
+               ans+=edges[i].wt;
+               unian(edges[i].u,edges[i].v,parent,rank);
+           }
+       }
+       return ans;
     }
 };
 
