@@ -19,8 +19,10 @@ class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
         vector<int>ans;
-        reversePreOrder(root,0,ans);
-        return ans;
+        // reversePreOrder(root,0,ans);    //Recursive
+        // return ans;
+        
+        //Iterative
         if(root==NULL)return ans;
         queue<TreeNode*>q;
         q.push(root);
